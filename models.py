@@ -21,7 +21,7 @@ class BaseModel(Model):
 class User(BaseModel):
     """
     Дочерний класс-модель с данными пользователя;
-    Родитель: Model
+    Родитель: BaseModel
     """
     user_id = IntegerField(primary_key=True)
     username = CharField()
@@ -29,6 +29,10 @@ class User(BaseModel):
     last_name = CharField(null=True)
 
 class Command(BaseModel):
+    """
+    Дочерний класс с данными о введенной команде
+    Родитель: BaseModel
+    """
     user = ForeignKeyField(User, backref='history')
     request_id = AutoField()
     command = CharField()
@@ -37,6 +41,10 @@ class Command(BaseModel):
         "{}".format(str(self.command))
 
 class CommandParameters(BaseModel):
+    """
+    Дочерний класс с данными о параметрах к введенной команде
+    Родитель: BaseModel
+    """
     command = ForeignKeyField(Command)
     name = CharField()
     value = CharField()
